@@ -1,6 +1,9 @@
 const zeroCode = "0".charCodeAt(0);
 const nineCode = "9".charCodeAt(0);
 const aCode = "a".charCodeAt(0);
+const ASCII_START = 32;
+const ASCII_FINISH = 126;
+const RANGE = ASCII_FINISH - ASCII_START + 1;
 
 export function myParseInt(strNum, radix) {
     let res = NaN;
@@ -80,4 +83,41 @@ export function myToStringFromIntNumber(number) {
     }
     return res;
 }
+
+function stringShiftUnshift(str, shift, sign) {
+    let res = str;
+    const actualShift = getActualShift(shift);
+    if (str != undefined && actualShift) {
+        str = str.toString();
+        res = "";
+        for (let i = 0; i < str.length; i++) {
+            res += shiftCharacter(str[i], actualShift * sign); 
+        }
+    }
+    return res;
+}
+
+export function stringShift(str, shift) {
+    return stringShiftUnshift(str, shift, 1);
+}
+
+export function stringUnshift(str, shift) {
+    return stringShiftUnshift(str, shift, -1);
+}
+
+function getActualShift(shift) {
+    const res = parseInt(shift);
+    return isNaN(res) || res < 0 ? 0 : res % RANGE;
+}
+
+function shiftCharacter(char, shift) {
+    let newCode = char.charCodeAt() + shift;
+    if (newCode < ASCII_START || newCode > ASCII_FINISH) {
+        const sign = shift / Math.abs(shift);
+        newCode += RANGE * sign;
+    }
+    return String.fromCharCode(newCode);
+}
+
+
 

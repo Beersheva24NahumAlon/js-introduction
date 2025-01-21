@@ -1,5 +1,5 @@
 import { describe, it, expect, test } from "vitest";
-import { myParseInt, myToStringFromIntNumber } from "../conversion-functions.mjs";
+import { myParseInt, myToStringFromIntNumber, getActualShift, stringShift, stringUnshift} from "../conversion-functions.mjs";
 test ("swap primitives", () => {
     let a = 10;
     let b = 20;
@@ -7,6 +7,7 @@ test ("swap primitives", () => {
     expect(a).toBe(20);
     expect(b).toBe(10);
 });
+
 describe("myPasreInt with radix test suit", () => {
     it("A 11- > 10", () => {
         expect(myParseInt("A", 11)).toBe(10);
