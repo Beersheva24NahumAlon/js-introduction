@@ -1,3 +1,7 @@
+const zeroCode = "0".charCodeAt(0);
+const nineCode = "9".charCodeAt(0);
+const aCode = "a".charCodeAt(0);
+
 export function myParseInt(strNum, radix) {
     let res = NaN;
     let actualRadix = getActualRadix(radix);
@@ -53,11 +57,8 @@ function signProcessing(strNum, sign, i) {
 function getDigit(digitStr, radix) {
     digitStr = digitStr.toLowerCase();
     const code = digitStr.charCodeAt(0);
-    const zeroCode = "0".charCodeAt(0);
-    const nineCode = "9".charCodeAt(0);
-    const aCode = "a".charCodeAt(0);
-    let base = code > nineCode ? aCode - 10 : zeroCode;
-    let res = code - base;
+    const base = code > nineCode ? aCode - 10 : zeroCode;
+    const res = code - base;
     return res >= 0 && res < radix ? res : NaN;
 }
 
