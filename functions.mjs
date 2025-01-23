@@ -26,9 +26,10 @@
 // display.apply(point, [50]);
 
 export function myBind(thisArg) {
-    const func = (num3, num4) => { 
-        return this.apply(thisArg, [num3, num4]);
+    const thisFunc = this;
+    const resFunc = function () { 
+        return thisFunc.apply(thisArg, arguments);
     };
-    return func;
+    return resFunc;
 }
 
