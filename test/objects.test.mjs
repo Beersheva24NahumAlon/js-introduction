@@ -1,49 +1,29 @@
 import { describe, it, expect, test } from "vitest";
-import { getOccurencesObject } from "../objects.mjs";
-describe("object iterating", () => {
-    const person = { name: "Vasya", age: 25 };
-    it("for-in iterating", () => {
-        const keys = ["name", "age"];
-        const values = ["Vasya", 25];
-        const actualKeys = [];
-        const actualValues = [];
-        for (let key in person) {
-            actualKeys.push(key);
-            actualValues.push(person[key]);
-        }
-        expect(actualKeys).toEqual(keys);
-        expect(actualValues).toEqual(values);
+describe("Object copying", () => {
+    
+    it("showing example of references assignment but not copy", () => {
+        const person1 = { name: "Vasya", age: 25 };
+        const person2 = person1;
+        person2.gender = "male";
+        expect(person1.gender).toBe("male");
     });
-    it("keys iterating", () => {
-        const keys = ["name", "age"];
-        const values = ["Vasya", 25];
-        const actualKeys = [];
-        const actualValues = [];
-        for (let key of Object.keys(person)) {
-            actualKeys.push(key);
-            actualValues.push(person[key]);
-        }
-        expect(actualKeys).toEqual(keys);
-        expect(actualValues).toEqual(values);
+    it("copy using spread opeator", () => {
+        const person1 = { name: "Vasya", age: 25 };
+        const person2 = {...person1};
+        person2.city = "Lod";
+        expect(person1.city).toBeUndefined;
+        person1.city = "Lod";
+        expect(person1).not.toBe(person2);
+        expect(person1).toEqual(person2);
     });
-    it("values iterating", () => {
-        const values = ["Vasya", 25];
-        const actualValues = [];
-        for (let value of Object.values(person)) {
-            actualValues.push(value);
-        }
-        expect(actualValues).toEqual(values);
+    it("copy using method assign of class Object", () => {
+        const person1 = { name: "Vasya", age: 25 };
+        const person2 = Object.assign(person1);
+        person2.city = "Lod";
+        expect(person1.city).toBeUndefined;
+        person1.city = "Lod";
+        expect(person1).toBe(person2);
+        expect(person1).toEqual(person2);
     });
-    it("entries iterating", () => {
-        const keys = ["name", "age"];
-        const values = ["Vasya", 25];
-        const actualKeys = [];
-        const actualValues = [];
-        for (let entry of Object.entries(person)) {
-            actualKeys.push(entry[0]);
-            actualValues.push(entry[1]);
-        }
-        expect(actualKeys).toEqual(keys);
-        expect(actualValues).toEqual(values);
-    });
+    
 });
