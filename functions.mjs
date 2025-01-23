@@ -1,7 +1,8 @@
-export function myBind(thisArg) {
-    const resFunc = (...args) => { 
-        return this.apply(thisArg, args);
+export function myBind(thisArg, ...bindArgs) {
+    return (...args) => {
+        args.push(...bindArgs);
+        thisArg.run = this;
+        return thisArg.run(...args);
     };
-    return resFunc;
 }
 
