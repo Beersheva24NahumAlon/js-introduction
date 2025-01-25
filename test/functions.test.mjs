@@ -2,7 +2,7 @@ import { describe, it, expect, test } from "vitest";
 import { myBind } from "../functions.mjs";
 
 describe("myBind test", () => {
-    const point = {x: 3, y: 4};
+    const point = { x: 3, y: 4 };
     function sumArguments(num3 = 0, num4 = 0) {
         return this.x + this.y + num3 + num4;
     }
@@ -21,5 +21,12 @@ describe("myBind test", () => {
     it("all parameters are passed inside bind and function with this argument", () => {
         const fun = sumArguments.bind(point, 20);
         expect(fun(10)).toBe(37);
+        expect(point.run).toBeUndefined();
     });
+    it("all parameters are passed inside bind and function with this argument and this argument has property 'run'", () => {
+        point.run = 1;
+        const fun = sumArguments.bind(point, 20);
+        expect(fun(10)).toBe(37);
+        expect(point.run).toBe(1);
+    })
 });
