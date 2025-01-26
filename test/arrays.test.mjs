@@ -1,16 +1,19 @@
 import { describe, it, expect, test } from "vitest";
-describe("slice, join and string split", () => { 
-    const numbers = [1, 2, 3, 2, 4];
-    it("slice method", () => {
-        const expected = [3, 2];
-        expect(numbers.slice(2, 4)).toEqual(expected);
-        expect(numbers.slice(7, 9)).toEqual([]);
-        expect(numbers.slice()).toEqual(numbers); //not deep copy
+import { myMap, myReduce } from "../arrays.mjs";
+describe("map and reduce methods", () => {
+    const array = [10, 1000, -10, 30, 60];
+    array.map = myMap;
+    array.reduce = myReduce;
+    it("myMap testing", () => {
+        const expected = [10, 1001, -8, 33, 64];
+        expect(array.map((e, i) => e + i)).toEqual(expected);
     });
-    it("join method", () => {
-        expect(numbers.join("")).toBe("12324");
-    });
-    it("split method", () => {
-        expect("12324".split("").map(s => +s)).toEqual(numbers);
+    it("myReduce testing", () => {
+        expect(array.reduce((sum, e) => sum += e, 0)).toBe(1090);
+        expect(array.reduce((obj, e) => {
+            obj.min = e < obj.min ? e : obj.min;
+            obj.max = e > obj.max ? e : obj.max;
+            return obj;
+        }, { min: array[0], max: array[0] })).toEqual({ min: -10, max: 1000 });
     });
 });
