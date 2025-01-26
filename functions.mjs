@@ -1,10 +1,9 @@
 export function myBind(thisArg, ...bindArgs) {
     return (...args) => {
-        args.push(...bindArgs);
-        const restore = thisArg.run;
-        thisArg.run = this;
-        const res = thisArg.run(...args)
-        restore == undefined ? delete thisArg.run : thisArg.run = restore;
+        const key = new Date().getDate().toString();
+        thisArg[key] = this;
+        const res = thisArg[key](...args, ...bindArgs)
+        delete thisArg[key];
         return res;
     };
 }
