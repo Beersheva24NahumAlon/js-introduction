@@ -9,7 +9,7 @@ describe("map and reduce methods", () => {
         expect(array.map((e, i) => e + i)).toEqual(expected);
     });
     it("myReduce testing", () => {
-        expect(array.reduce((sum, e) => sum += e, 0)).toBe(1090);
+        expect(array.reduce((sum, e) => sum += e)).toBe(1090);
         expect(array.reduce((obj, e) => {
             obj.min = e < obj.min ? e : obj.min;
             obj.max = e > obj.max ? e : obj.max;

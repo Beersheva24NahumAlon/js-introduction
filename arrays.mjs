@@ -8,10 +8,11 @@ export function myMap(callback) {
 }
 
 export function myReduce(callback, initialValue) {
-    let accumulator = initialValue;
-    this.forEach((element, index, array) => {
-        accumulator = callback(accumulator, element, index, array);
-    });
+    let index = 0;
+    let accumulator = initialValue != undefined ? initialValue : this[index++];
+    for (index; index < this.length; index++) {
+        accumulator = callback(accumulator, this[index], index, this);
+    }   
     return accumulator;
 
 }
