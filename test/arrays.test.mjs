@@ -1,27 +1,25 @@
 import { describe, it, expect, test } from "vitest";
-describe("sorting elements of array", () => { 
-    it("native sorting in place", () => {
-        const array = [1, 2, 3, 2, 4];
-        const expected = [1, 2, 2, 3, 4];
-        array.sort();
-        expect(array).toEqual(expected);
+describe("array introspecting", () => { 
+    const numbers = [1, 2, 3, 2, 4];
+    const objects = [
+        {x: 4}, 
+        {x: 5},
+        {x: 6}
+    ];
+    it("array of primitivies includes element", () => { 
+        expect(numbers.includes(3)).toBeTruthy()
+        expect(numbers.includes(5)).toBeFalsy()
     });
-    it("method sort return sorted array (but also sort in place)", () => {
-        const array = [1, 2, 3, 2, 4];
-        const expected = [1, 2, 2, 3, 4];
-        expect(array.sort()).toEqual(expected);
-        expect(array).toEqual(expected);
+    it("array of objects includes element", () => { 
+        expect(objects.find(e => e.x === 5)).toBeTruthy();
+        expect(objects.find(e => e.x === 7)).toBeFalsy();
     });
-    it("before sorting each element become strings (to able to compare it)", () => {
-        const array = [10, 1000, -10, 30, 60];
-        const expected = [-10, 10, 1000, 30, 60];
-        expect(array.toSorted()).toEqual(expected);
-        expect(array).not.toEqual(expected);
+    it("testing if all elemets match some condition", () => {
+        expect(numbers.every(e => e % 2 === 0)).toBeFalsy();
+        expect(objects.every(e => e.x > 0)).toBeTruthy();
     });
-    it("sorting with method toSorted (not sorted in place)", () => {
-        const array = [10, 1000, -10, 30, 60];
-        const expected = [-10, 10, 30, 60, 1000];
-        expect(array.toSorted((num1, num2) => num1 - num2)).toEqual(expected);
-        expect(array).not.toEqual(expected);
+    it("testing if some elemets match some condition", () => {
+        expect(numbers.some(e => e % 2 === 0)).toBeTruthy();
+        expect(objects.some(e => e.x < 0)).toBeFalsy();
     });
 });
