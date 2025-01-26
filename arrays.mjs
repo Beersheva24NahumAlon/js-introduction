@@ -1,7 +1,7 @@
 export function myMap(callback) {
     const res = [];
-    this.forEach((element, index) => {
-        const newElement = callback(element, index, this);
+    this.forEach((element, index, array) => {
+        const newElement = callback(element, index, array);
         res.push(newElement);
     });
     return res;
@@ -9,8 +9,8 @@ export function myMap(callback) {
 
 export function myReduce(callback, initialValue) {
     let accumulator = initialValue;
-    this.forEach((element, index) => {
-        accumulator = callback(accumulator, element, index, this);
+    this.forEach((element, index, array) => {
+        accumulator = callback(accumulator, element, index, array);
     });
     return accumulator;
 
