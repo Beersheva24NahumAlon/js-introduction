@@ -1,25 +1,16 @@
 import { describe, it, expect, test } from "vitest";
-describe("array introspecting", () => { 
+describe("slice, join and string split", () => { 
     const numbers = [1, 2, 3, 2, 4];
-    const objects = [
-        {x: 4}, 
-        {x: 5},
-        {x: 6}
-    ];
-    it("array of primitivies includes element", () => { 
-        expect(numbers.includes(3)).toBeTruthy()
-        expect(numbers.includes(5)).toBeFalsy()
+    it("slice method", () => {
+        const expected = [3, 2];
+        expect(numbers.slice(2, 4)).toEqual(expected);
+        expect(numbers.slice(7, 9)).toEqual([]);
+        expect(numbers.slice()).toEqual(numbers); //not deep copy
     });
-    it("array of objects includes element", () => { 
-        expect(objects.find(e => e.x === 5)).toBeTruthy();
-        expect(objects.find(e => e.x === 7)).toBeFalsy();
+    it("join method", () => {
+        expect(numbers.join("")).toBe("12324");
     });
-    it("testing if all elemets match some condition", () => {
-        expect(numbers.every(e => e % 2 === 0)).toBeFalsy();
-        expect(objects.every(e => e.x > 0)).toBeTruthy();
-    });
-    it("testing if some elemets match some condition", () => {
-        expect(numbers.some(e => e % 2 === 0)).toBeTruthy();
-        expect(objects.some(e => e.x < 0)).toBeFalsy();
+    it("split method", () => {
+        expect("12324".split("").map(s => +s)).toEqual(numbers);
     });
 });
