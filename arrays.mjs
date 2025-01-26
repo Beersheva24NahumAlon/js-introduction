@@ -1,7 +1,7 @@
-export function myMap(callback) {
+export function myMap(callback, thisArg) {
     const res = [];
     this.forEach((element, index, array) => {
-        const newElement = callback(element, index, array);
+        const newElement = callback.call(thisArg, element, index, array);
         res.push(newElement);
     });
     return res;
