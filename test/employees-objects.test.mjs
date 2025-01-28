@@ -43,4 +43,10 @@ describe("constructors, getters and computeSalary tests", () => {
         const expectedBudget = employee.computeSalary() + wageEmployee.computeSalary() + salesPerson.computeSalary() + manager.computeSalary();
         expect(budget).toBe(expectedBudget);
     });
+    it("setPrototype", () => {
+        const obj = {basicSalary: 12000};
+        Object.setPrototypeOf(obj, Employee.prototype);
+        const prototype = Object.getPrototypeOf(obj);
+        expect(obj.computeSalary()).toBe(12000)
+    });
 });
