@@ -44,10 +44,12 @@ describe("constructors, getters and computeSalary tests", () => {
         expect(budget).toBe(expectedBudget);
     });
     it("setPrototype", () => {
-        const obj = {basicSalary: 12000};
-        Object.setPrototypeOf(obj, Employee.prototype);
-        const prototype = Object.getPrototypeOf(obj);
-        expect(obj.computeSalary()).toBe(12000)
+        const obj1 = {basicSalary: 12000};
+        Object.setPrototypeOf(obj1, Employee.prototype);
+        expect(obj1.computeSalary()).toBe(12000);
+        const obj2 = {basicSalary: 12000, factor: 2};
+        Object.setPrototypeOf(obj2, Manager.prototype);
+        expect(obj2.computeSalary()).toBe(24000);
     });
 });
 describe("object to JSON and object to JSON", () => {
@@ -66,5 +68,5 @@ describe("object to JSON and object to JSON", () => {
         expect(salesPerson2.computeSalary()).toBe(salesPerson.computeSalary());
         const manager2 = Employee.fromJSON(JSON.stringify(manager));
         expect(manager2.computeSalary()).toBe(manager.computeSalary());
-    })
+    });
 });
