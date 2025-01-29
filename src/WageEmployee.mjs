@@ -1,6 +1,9 @@
 import Employee from "./Employee.mjs";
 
 export default class WageEmployee extends Employee {
+    static {
+        Employee.classMap.WageEmployee = new WageEmployee();
+    }
 
     constructor(id, department, basicSalary, wage = 0, hours = 0) {
         super(id, department, basicSalary);

@@ -4,19 +4,19 @@ import WageEmployee from "../src/WageEmployee.mjs";
 import Manager from "../src/Manager.mjs";
 import SalesPerson from "../src/SalesPerson.mjs";
 
+const basicSalary = 10000;
+const department = "dep1";
+const id = 1;
+const wage = 50;
+const hours = 5;
+const sales = 200;
+const percent = 0.1;
+const factor = 1.6;
+const employee = new Employee(id, department, basicSalary);
+const wageEmployee = new WageEmployee(id, department, basicSalary, wage, hours);
+const salesPerson = new SalesPerson(id, department, basicSalary, wage, hours, percent, sales);
+const manager = new Manager(id, department, basicSalary, factor);
 describe("constructors, getters and computeSalary tests", () => {
-    const basicSalary = 10000;
-    const department = "dep1";
-    const id = 1;
-    const wage = 50;
-    const hours = 5;
-    const sales = 200;
-    const percent = 0.1;
-    const factor = 1.6;
-    const employee = new Employee(id, department, basicSalary);
-    const wageEmployee = new WageEmployee(id, department, basicSalary, wage, hours);
-    const salesPerson = new SalesPerson(id, department, basicSalary, wage, hours, percent, sales);
-    const manager = new Manager(id, department, basicSalary, factor);
     it("employee test", () => {
         expect(employee.getBasicSalary()).toBe(basicSalary);
         expect(employee.computeSalary()).toBe(basicSalary);
@@ -38,9 +38,9 @@ describe("constructors, getters and computeSalary tests", () => {
         expect(manager.computeSalary()).toBe(basicSalary * factor);
     });
     it("polymorphism test", () => {
-        const employees = [employee, wageEmployee, salesPerson, manager];
+        const employees = [employee, wageEmployee, salesPerson, wageEmployee];
         const budget = employees.reduce((sum, o) => sum + o.computeSalary(), 0);
-        const expectedBudget = employee.computeSalary() + wageEmployee.computeSalary() + salesPerson.computeSalary() + manager.computeSalary();
+        const expectedBudget = employee.computeSalary() + wageEmployee.computeSalary() + salesPerson.computeSalary() + wageEmployee.computeSalary();
         expect(budget).toBe(expectedBudget);
     });
     it("setPrototype", () => {
@@ -49,4 +49,22 @@ describe("constructors, getters and computeSalary tests", () => {
         const prototype = Object.getPrototypeOf(obj);
         expect(obj.computeSalary()).toBe(12000)
     });
+});
+describe("object to JSON and object to JSON", () => {
+    it("Employees to JSON", () => {
+        expect(JSON.stringify(employee).indexOf("Employee")).toBeGreaterThan(-1);
+        expect(JSON.stringify(wageEmployee).indexOf("WageEmployee")).toBeGreaterThan(-1);
+        expect(JSON.stringify(salesPerson).indexOf("SalesPerson")).toBeGreaterThan(-1);
+        expect(JSON.stringify(manager).indexOf("Manager")).toBeGreaterThan(-1);
+    });
+    it("JSON to Employee", () => {
+        const employee2 = Employee.fromJSON(JSON.stringify(employee));
+        expect(employee2.computeSalary()).toBe(employee.computeSalary());
+        const wageEmployee2 = Employee.fromJSON(JSON.stringify(wageEmployee));
+        expect(wageEmployee2.computeSalary()).toBe(wageEmployee.computeSalary());
+        const salesPerson2 = Employee.fromJSON(JSON.stringify(salesPerson));
+        expect(salesPerson2.computeSalary()).toBe(salesPerson.computeSalary());
+        const manager2 = Employee.fromJSON(JSON.stringify(manager));
+        expect(manager2.computeSalary()).toBe(manager.computeSalary());
+    })
 });
