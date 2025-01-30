@@ -15,7 +15,7 @@ const timeout = 1000;
 // console.log(`waiting for ${timeout}ms ...`);
 
 function initialNumber() {
-    return 1;
+    return 0;
 }
 
 function sum(number, factor) {
@@ -28,10 +28,32 @@ function displayNumber(number) {
     } 
     console.log(number);
 }
-sleep(timeout).then(() => initialNumber())
-        .then((num) => sum(num))
-                .then((num) => sum(num))
-                        .then((num) => sum(num, 0))
-                                .then((num) => displayNumber(num))
-                                        .catch((er) => console.log(`error: ${er}`));
-                            
+// sleep(timeout).then(() => initialNumber())
+//         .then((num) => sum(num))
+//                 .then((num) => sum(num))
+//                         .then((num) => sum(num, 0))
+//                                 .then((num) => displayNumber(num))
+//                                         .catch((er) => console.log(`error: ${er}`));
+async function summing(numbers) {
+    try {
+        await sleep(timeout);
+        let res = initialNumber();
+        for (let num of numbers) {
+            res = sum(res, num);
+        }
+        return res;
+    } catch (er) {
+        console.log(`error of summing: ${er}`)
+    }
+}
+
+
+let res = (async() => { let res = await summing([1, 2]); 
+//.then(num => displayNumber(num)).catch(er => console.log(`error from displayNumber: ${er}`));
+try {
+    displayNumber(res);
+} catch (error) {
+    console.log(error);
+}})();
+console.log("kukareku"); 
+console.log(1 + res);                           
