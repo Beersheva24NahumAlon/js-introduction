@@ -9,10 +9,7 @@ export default class Deferred {
     }
 
     then(func) {
-        this.promise = this.promise.then((value) => {
-            value = value == undefined ? this.initialValue : value;
-            return func(value);
-        });   
+        this.promise = this.promise.then((value) => func(value ?? this.initialValue));   
     }
 
     resolve(initialValue) {
