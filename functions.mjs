@@ -1,6 +1,6 @@
 export function myBind(thisArg, ...bindArgs) {
     return (...args) => {
-        const key = new Date().getDate().toString();
+        const key = Symbol();
         thisArg[key] = this;
         const res = thisArg[key](...args, ...bindArgs)
         delete thisArg[key];
