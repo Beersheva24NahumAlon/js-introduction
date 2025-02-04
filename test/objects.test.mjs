@@ -1,6 +1,6 @@
 import { describe, it, expect, test } from "vitest";
-import { makeIteratorClosedRange, makeIterableClosedRange } from "../objects.mjs";
-import { ac } from "vitest/dist/chunks/reporters.D7Jzd9GS.js";
+import { makeIteratorClosedRange, makeIterableClosedRange, makeGeneratorCloceRange, makeIterableGeneratorClosedRange } from "../objects.mjs";
+
 describe("iterator pattern test", () => {
     it("iterator test", () => {
         const iterator = makeIteratorClosedRange(1, 3);
@@ -17,6 +17,33 @@ describe("iterator pattern test", () => {
     });
     it("iterable test", () => {
         const iterable = makeIterableClosedRange(1, 3);
+        const expected = [1, 2, 3];
+        const actual = [];
+        for (const num of iterable) {
+            actual.push(num);
+        }
+        expect(actual).toEqual(expected);
+        actual.length = 0;
+        for (const num of iterable) {
+            actual.push(num);
+        }
+        expect(actual).toEqual(expected);
+    });
+    it("iterator test based on generator", () => {
+        const iterator = makeGeneratorCloceRange(1, 3);
+        const expected = [1, 2, 3];
+        const actual = []; 
+        while (true) {
+            const {value, done} = iterator.next();
+            if (done) {
+                break;
+            } 
+            actual.push(value);
+        }
+        expect(actual).toEqual(expected);
+    });
+    it("iterable test based on generation", () => {
+        const iterable = makeIterableGeneratorClosedRange(1, 3);
         const expected = [1, 2, 3];
         const actual = [];
         for (const num of iterable) {

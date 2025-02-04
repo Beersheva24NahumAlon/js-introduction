@@ -10,5 +10,20 @@ export function makeIteratorClosedRange(min, max) {
 }
 
 export function makeIterableClosedRange(min, max) {
-    //TODO
+    return {
+        //[Symbol.iterator]: () => makeIteratorClosedRange(min, max)
+        [Symbol.iterator]: makeIteratorClosedRange.bind(undefined, min, max)
+    };
+}
+
+export function* makeGeneratorCloceRange(min, max) {
+    for (let i = min; i <= max; i++) {
+        yield i;
+    }
+}
+
+export function makeIterableGeneratorClosedRange(min, max) {
+    return {
+        [Symbol.iterator]: makeGeneratorCloceRange.bind(undefined, min, max)
+    };
 }
