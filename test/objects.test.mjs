@@ -1,5 +1,5 @@
 import { describe, it, expect, test } from "vitest";
-import { makeIteratorClosedRange, makeIterableClosedRange, makeGeneratorCloceRange, makeIterableGeneratorClosedRange } from "../objects.mjs";
+import { makeIteratorClosedRange, makeIterableClosedRange, makeGeneratorClosedRange, makeIterableGeneratorClosedRange } from "../objects.mjs";
 
 describe("iterator pattern test", () => {
     it("iterator test", () => {
@@ -30,7 +30,7 @@ describe("iterator pattern test", () => {
         expect(actual).toEqual(expected);
     });
     it("iterator test based on generator", () => {
-        const iterator = makeGeneratorCloceRange(1, 3);
+        const iterator = makeGeneratorClosedRange(1, 3);
         const expected = [1, 2, 3];
         const actual = []; 
         while (true) {

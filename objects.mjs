@@ -16,7 +16,7 @@ export function makeIterableClosedRange(min, max) {
     };
 }
 
-export function* makeGeneratorCloceRange(min, max) {
+export function* makeGeneratorClosedRange(min, max) {
     for (let i = min; i <= max; i++) {
         yield i;
     }
@@ -24,6 +24,6 @@ export function* makeGeneratorCloceRange(min, max) {
 
 export function makeIterableGeneratorClosedRange(min, max) {
     return {
-        [Symbol.iterator]: makeGeneratorCloceRange.bind(undefined, min, max)
+        [Symbol.iterator]: makeGeneratorClosedRange.bind(undefined, min, max)
     };
 }
